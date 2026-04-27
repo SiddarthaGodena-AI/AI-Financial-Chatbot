@@ -1,0 +1,29 @@
+# Use a lightweight Python image
+FROM python:3.9-slim
+
+# Set an environment variable for your application file
+ENV APP_FILE /Chat-bot
+
+# Set the working directory to the folder containing your file
+WORKDIR /Chat-bot
+
+# Copy the entire folder into the container
+COPY . ./
+
+# Update and upgrade the package list
+RUN apt update && apt upgrade -y
+
+# Create a virtual environment
+RUN python -m venv /opt/venv
+
+# Activate the virtual environment by updating the PATH
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Install Python dependencies inside the virtual environment
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expose the application port
+EXPOSE 8080
+
+# Run the application with Uvicorn
+CMD ["uvicorn", "Chat:app", "--host=0.0.0.0", "--port=8080"]

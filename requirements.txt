@@ -1,0 +1,9 @@
+fastapi
+pydantic
+uvicorn
+httpx
+openai
+google-cloud-storage
+pandas
+openpyxl
+vertexai
